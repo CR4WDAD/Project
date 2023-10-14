@@ -82,7 +82,10 @@ Part Three
 
     Add and commit this document (5 pts)
 
-#Commands here
+#>>> /usr/bin/git commit -F /tmp/Rtmp6EkZLp/git-commit-message-11960b00e96.txt
+[main c7af6e5] project_two answers
+ 1 file changed, 90 insertions(+)
+ create mode 100644 projects/project_two/Project_two_answers
 
     Push your changes to github (10 pts)
 
