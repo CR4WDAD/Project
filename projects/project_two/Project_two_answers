@@ -1,0 +1,90 @@
+
+Project Two
+
+Due Oct. 13 at 11:59 PM.
+
+For this first part of the exam, you can either use surveys_complete.csv or your own data. If you are using your own data, you must have data in which you think you have a numerical predictor variable and a numerical response variable. If you are using surveys_complete, you can use weight and hindfoot_length for this.
+
+Save this file in your projects directory. You can either save it in a project two subdirectory, or just put it in projects. Either way is fine.
+
+    Load in your data. Which variable will you be using as a predictor, and which as a response? (5 pts)
+
+# surveys <- read.csv("data/surveys.csv")
+
+# weight is the predictor, hindfootlength is the response. 
+
+    Plot the two against each other with a scatter plot. Do the data appear to be related linearly? (5 pts)
+
+# ggplot(surveys, aes(x = weight, y = hindfoot_length)) + geom_point()
+
+# They seem slightly related linearly
+
+    Fit the linear model. View the summary. (5 pts)
+
+# model_fit <- lm(hindfoot_length ~ weight, data = surveys)
+  summary(model_fit)
+
+    Does the summary make sense when you compare it to the plot you made? Does our model have good predictive power? Evaluate the residual standard error, intercept, and R-Squared in particular. Would you say your predictor predicts the response? (10 pts)
+
+# For every 21.56 kg we can expect an increase in hindfoot length by 0.18. The residual error of 6.93 indicates that my model is poor in quality. We can expect the hindfoot_length to be 21 mm when weight is 0. Less than 50% of the variation in weight can be explained by hindfoot lengths. My predictor does not predict the response.
+
+    Plot the model on the graph. Increase the size of the text so it is comfortably readable at 5 feet. Make sure axis labels are readable and not overlapping with one another. (5 pts)
+
+# ggplot(surveys, aes(x = weight, y = hindfoot_length)) + geom_point(size = 0.5) + geom_smooth(method = "lm", color = "navy", size = 0.5, fill = "deeppink4") + labs( x = "Weight (kg)", y = "Hindfoot_length(mm)", title = "Linear Regression to Predict Hindfoot Length") + theme_bw()
+
+    Check the normality of the residuals. Do they look OK? Are we violating assumptions? (5 pts)
+
+#qqnorm(augmented_fit$.resid)
+qqline(augmented_fit$.resid, col = "red"), our residuals are not OK. 
+
+Why is normality of residuals important?
+
+# They tell you whether or not you should be OK with the assumptions being met for your model. 
+
+    If you are using surveys_complete: Is there interspecific variation in the linear model? Hint: look at our prior work with facet plots. (15 pts)
+
+# ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length)) + geom_line() + facet_wrap(facets = vars(species_id)) 
+yes there seems to be interspecific variation in the linear model. 
+
+Part Two
+
+In this portion, you are free to use your own data if you have a categorical predictor variable and a response variable. Otherwise, you may use the columns sex and weight in surveys_complete
+
+    First, plot the data grouped by sex (5 pts)
+
+# ggplot(surveys , aes(x=sex,y=weight)) + geom_jitter()
+
+    Try an ANOVA of this data (5 pt)
+
+# model_fit <- lm(weight ~ sex, data = surveys)
+ aov(model_fit) -> anova_model_fit
+
+
+    How about a linear model? What information does this give you that an ANOVA can’t? (5 pts)
+
+#summary(model_fit)
+
+# The linear model gives us information on things that are irregular for our assumptions. 
+
+    Plot the lm with the data, with points colored by sex. (10 pts)
+
+#ggplot(surveys , aes(x=sex,y=weight, color = sex)) + geom_jitter() + labs(x = "Sex", y = "Weight (kg)") + theme(legend.position = "none") + stat_summary(fun.data = "mean_se", color = "black")
+
+    Choose any model we’ve looked at so far, but use two predictor variables. Perform an LM, plot the results, and state if this changes your interpretation of the relationship between variables (10 pts)
+
+# model_fit <- lm(hindfoot_length ~ sex + weight, data = surveys)
+
+# ggplot(surveys, aes(x=weight,y=hindfoot_length, color = sex)) + geom_point(size=2.5) + labs(x="Weight (kg)",y="Hindfoot_length (mm)", color = "Sex") + theme(legend.position = "bottom")
+
+# There is no new information to find here, my interpreation of the relationship between variables has not been changed.
+
+Part Three
+
+    Add and commit this document (5 pts)
+
+#Commands here
+
+    Push your changes to github (10 pts)
+
+#Commands here
+
